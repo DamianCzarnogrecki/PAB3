@@ -13,7 +13,7 @@ namespace PAB3
         public Form1()
         {
             InitializeComponent();
-            LoadTables();
+            //LoadTables();
         }
 
         public async void LoadTables()
@@ -56,6 +56,33 @@ namespace PAB3
             {
                 var dane = await kontekst.KodyPocztowe.Where(kod => kod.Kod_Pocztowy.Contains(this.kod) && kod.Adres.Contains(adres) && kod.Miejscowosc.Contains(miejscowosc) && kod.Wojewodztwo.Contains(wojewodztwo) && kod.Powiat.Contains(powiat)).ToListAsync();
                 dataGridView1.DataSource = dane;
+            }
+        }
+
+        private async void button3_Click(object sender, EventArgs e)
+        {
+            ReadText();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (SqlCommand command = new SqlCommand())
+                {
+                    command.Connection = connection;
+
+                    command.CommandText = "SELECT * FROM Kody_Pocztowe";
+
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+
+                    DataTable dataTable = new DataTable();
+                    dataTable.Load(reader);
+
+                    DataView dataView = dataTable.DefaultView;
+                    dataView.RowFilter = $"Kod_Pocztowy LIKE '%{kod}%' AND Adres LIKE '%{adres}%' AND Miejscowosc LIKE '%{miejscowosc}%' AND Wojewodztwo LIKE '%{wojewodztwo}%' AND Powiat LIKE '%{powiat}%'";
+
+                    dataGridView1.DataSource = dataView;
+                }
             }
         }
     }
