@@ -40,6 +40,7 @@
             textbox_powiat = new TextBox();
             label5 = new Label();
             textbox_kod = new TextBox();
+            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -146,12 +147,23 @@
             textbox_kod.Size = new Size(222, 23);
             textbox_kod.TabIndex = 10;
             // 
+            // button2
+            // 
+            button2.Location = new Point(566, 386);
+            button2.Name = "button2";
+            button2.Size = new Size(222, 23);
+            button2.TabIndex = 12;
+            button2.Text = "Wyszukaj (Entity Framework – LINQ)";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Blue;
             ClientSize = new Size(800, 450);
+            Controls.Add(button2);
             Controls.Add(label5);
             Controls.Add(textbox_kod);
             Controls.Add(label4);
@@ -185,5 +197,6 @@
         private TextBox textbox_powiat;
         private Label label5;
         private TextBox textbox_kod;
+        private Button button2;
     }
 }
