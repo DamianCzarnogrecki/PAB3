@@ -2,6 +2,7 @@ using Dapper;
 using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 
 namespace PAB3
 {
@@ -39,6 +40,9 @@ namespace PAB3
         {
             ReadText();
 
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 await connection.OpenAsync();
@@ -46,22 +50,34 @@ namespace PAB3
                     ($"SELECT * FROM Kody_Pocztowe WHERE Kod_Pocztowy LIKE '%{kod}%' AND Adres LIKE '%{adres}%' AND Miejscowosc LIKE '%{miejscowosc}%' AND Wojewodztwo LIKE '%{wojewodztwo}%' AND Powiat LIKE '%{powiat}%'");
                 dataGridView1.DataSource = dane;
             }
+
+            TimeSpan timeSpan = stopwatch.Elapsed;
+            czas.Text = "Milisekundy: " + timeSpan.TotalMilliseconds;
         }
 
         private async void button2_Click(object sender, EventArgs e)
         {
             ReadText();
 
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             using (var kontekst = new Kontekst(connectionString))
             {
                 var dane = await kontekst.KodyPocztowe.Where(kod => kod.Kod_Pocztowy.Contains(this.kod) && kod.Adres.Contains(adres) && kod.Miejscowosc.Contains(miejscowosc) && kod.Wojewodztwo.Contains(wojewodztwo) && kod.Powiat.Contains(powiat)).ToListAsync();
                 dataGridView1.DataSource = dane;
             }
+
+            TimeSpan timeSpan = stopwatch.Elapsed;
+            czas.Text = "Milisekundy: " + timeSpan.TotalMilliseconds;
         }
 
         private async void button3_Click(object sender, EventArgs e)
         {
             ReadText();
+
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -84,6 +100,9 @@ namespace PAB3
                     dataGridView1.DataSource = dataView;
                 }
             }
+
+            TimeSpan timeSpan = stopwatch.Elapsed;
+            czas.Text = "Milisekundy: " + timeSpan.TotalMilliseconds;
         }
     }
 }

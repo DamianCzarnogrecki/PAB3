@@ -42,6 +42,7 @@
             textbox_kod = new TextBox();
             button2 = new Button();
             button3 = new Button();
+            czas = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -168,12 +169,22 @@
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
+            // czas
+            // 
+            czas.AutoSize = true;
+            czas.ForeColor = Color.White;
+            czas.Location = new Point(566, 307);
+            czas.Name = "czas";
+            czas.Size = new Size(0, 15);
+            czas.TabIndex = 14;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Blue;
             ClientSize = new Size(800, 450);
+            Controls.Add(czas);
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(label5);
@@ -211,5 +222,6 @@
         private TextBox textbox_kod;
         private Button button2;
         private Button button3;
+        private Label czas;
     }
 }
